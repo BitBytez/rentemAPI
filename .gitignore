@@ -1,0 +1,5 @@
+.env
+node_modules/
+node_pid.txt
+nohup.out
+package.json
