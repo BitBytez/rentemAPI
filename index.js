@@ -1,14 +1,12 @@
 const express = require('express');
 const logger = require('morgan');
 const dotenv = require('dotenv');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const app = express();
 const port = 3000
 dotenv.config();
 
-const mailChecker = require('./routes/mail_checker');
 
 //middleware
 app.use(express.json());
@@ -19,6 +17,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));
 
 //routes
+const mailChecker = require('./routes/mail_checker');
+const dataRetrieveMobile = require('./routes/data_retreive_mobile');
+const updateDetails = require('./routes/details_update');
 app.use('/test',mailChecker);
+app.use('/test',dataRetrieveMobile);
+app.use('/test',updateDetails);
 
 app.listen(port, () => console.log('Listening on', port));
