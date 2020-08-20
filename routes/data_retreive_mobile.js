@@ -27,7 +27,7 @@ router.post('/mobile', async (req,res)=>{
     const hashMobile = dataEncrypt(mobile);
     mobileExists = await client.db(privateDB).collection(userCollection).findOne({
         mobile : hashMobile
-    });
+    }); 
     var userData = {};
     if (mobileExists){
         userData.user = DecrpytUser(mobileExists);
