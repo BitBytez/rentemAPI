@@ -11,7 +11,8 @@ client.connect();
 
 const {
     dataEncrypt,
-    dataDecrypt
+    dataDecrypt,
+    encryptUser
 } = require('../encryption');
 
 const privateDB = "rentemPrivateDB";
@@ -31,7 +32,6 @@ router.post('/update', async (req,res) => {
             mobile : hashMobile
         });
         if(mobileExists){
-            
             responseData.message = "Mobile already Exists";
             responseData.status = 200;
             responseData.dev = {}
@@ -42,10 +42,8 @@ router.post('/update', async (req,res) => {
         }
     }
     
-    const hashDob = dataEncrypt(req.body.dob);
-    const hashGender = dataEncrypt(req.body.gender);
-    const hashMobile = dataEncrypt(req.body.mobile); //! reinitializing take care
-    const hashEmail = dataEncrypt(req.body.email); //! reinitializing take care
+    const hashEmail = dataEncrypt(req.body.email);
+    var tempData = encryptUser(req.body, keys = ['dob','gender','mobile']);
     var userData = await client.db(privateDB).collection(userCollection).findOne({
         email: hashEmail
     });
@@ -54,10 +52,10 @@ router.post('/update', async (req,res) => {
         responseData.status = 200;
         return res.status(200).send(responseData);
     }
-    userData.dob = hashDob;
-    userData.gender = hashGender;
-    userData.mobile = hashMobile;
-    console.log(responseData);
+    for (var x in tempData){
+        userData[x] = tempData[x];
+    }
+    console.log(userData);
     try{
         client.db(privateDB).collection(userCollection).updateOne({
             email: hashEmail
