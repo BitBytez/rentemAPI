@@ -22,7 +22,7 @@ router.post('/mobile', async (req,res)=>{
     const mobile = req.body.mobile;
     // TODO country code check (what if input is +9178213192198)
     if(!mobile){
-        return res.status(404).send({"message":"Mobile required"});
+        return res.status(200).send({"message":"Mobile required"});
     }
     const hashMobile = dataEncrypt(mobile);
     mobileExists = await client.db(privateDB).collection(userCollection).findOne({
