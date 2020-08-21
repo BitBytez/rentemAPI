@@ -14,29 +14,18 @@ const dataDecrypt = (data) => {
 }
 
 const DecrpytUser = (encryptedUser) => {
-    var DecryptedUser = {}
-    if (encryptedUser.email) {
-        DecryptedUser.email = dataDecrypt(encryptedUser.email);
+    var _DecryptedUser = {}
+    var legalKeys = ["email","name","id","photo","dob","gender","mobile"];
+    for(var key in encryptedUser){
+        console.log(key +" : " +encryptedUser[key]);
+        if(legalKeys.indexOf(key) == -1){
+            continue;
+        }
+        // TODO better to use try and throw user defined error
+        _DecryptedUser[key] = dataDecrypt(encryptedUser[key]);
+        console.log(_DecryptedUser);
     }
-    if (encryptedUser.name) {
-        DecryptedUser.name = dataDecrypt(encryptedUser.name);
-    }
-    if (encryptedUser.id) {
-        DecryptedUser.id = dataDecrypt(encryptedUser.id);
-    }
-    if (encryptedUser.photo) {
-        DecryptedUser.photo = dataDecrypt(encryptedUser.photo);
-    }
-    if (encryptedUser.dob) {
-        DecryptedUser.dob = dataDecrypt(encryptedUser.dob);
-    }
-    if (encryptedUser.gender) {
-        DecryptedUser.gender = dataDecrypt(encryptedUser.gender);
-    }
-    if (encryptedUser.mobile) {
-        DecryptedUser.mobile = dataDecrypt(encryptedUser.mobile);
-    }
-    return DecryptedUser;
+    return _DecryptedUser;
 }
 
 module.exports.dataEncrypt = dataEncrypt;
