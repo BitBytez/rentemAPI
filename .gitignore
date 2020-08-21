@@ -2,3 +2,5 @@ package-lock.json
 .env
 node_modules/
 package.json
+pid_node.txt
+nohup.out
