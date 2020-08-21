@@ -13,21 +13,32 @@ const dataDecrypt = (data) => {
     return hashData;
 }
 
-const DecrpytUser = (encryptedUser) => {
+const DecryptUser = (encryptedUser) => {
     var _DecryptedUser = {}
     var legalKeys = ["email","name","id","photo","dob","gender","mobile"];
     for(var key in encryptedUser){
-        console.log(key +" : " +encryptedUser[key]);
         if(legalKeys.indexOf(key) == -1){
             continue;
         }
         // TODO better to use try and throw user defined error
         _DecryptedUser[key] = dataDecrypt(encryptedUser[key]);
-        console.log(_DecryptedUser);
     }
     return _DecryptedUser;
 }
 
+const encryptUser = (simpleuser) => {
+    var _encryptedUser = {};
+    var legalKeys = ["email", "name", "id", "photo", "dob", "gender", "mobile"];
+    for (var key in simpleuser){
+        if(legalKeys.indexOf(key) == -1){
+            continue;
+        }
+        _encryptedUser[key] = dataEncrypt(simpleuser[key]);
+    }
+    return _encryptedUser;
+}
+
 module.exports.dataEncrypt = dataEncrypt;
 module.exports.dataDecrypt = dataDecrypt;
-module.exports.DecrpytUser = DecrpytUser;
+module.exports.DecryptUser = DecryptUser;
+module.exports.encryptUser = encryptUser;
