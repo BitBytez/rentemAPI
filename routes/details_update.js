@@ -11,11 +11,8 @@ client.connect();
 
 const {
     dataEncrypt,
-    DecrpytUser,
     dataDecrypt
-} = require('../encryption')
-const devUser = require('../models/devUser.js');
-const { response } = require('express');
+} = require('../encryption');
 
 const privateDB = "rentemPrivateDB";
 const userCollection = "devTesting";
@@ -24,8 +21,8 @@ router.post('/update', async (req,res) => {
     var responseData = {}
     if(!req.body.email){
         responseData.message = "Email required";
-        responseData.status = 404;
-        return res.status(404).send(responseData);
+        responseData.status = 200;
+        return res.status(200).send(responseData);
     }
     
     if(req.body.mobile){
@@ -36,12 +33,12 @@ router.post('/update', async (req,res) => {
         if(mobileExists){
             
             responseData.message = "Mobile already Exists";
-            responseData.status = 404;
+            responseData.status = 200;
             responseData.dev = {}
             responseData.dev.message = "mobile exists in email id given";
             responseData.dev.email = dataDecrypt(mobileExists.email);
             // TODO what if mobile exists with his email id only??
-            return res.status(404).send(responseData);
+            return res.status(200).send(responseData);
         }
     }
     
@@ -54,8 +51,8 @@ router.post('/update', async (req,res) => {
     });
     if(!userData){
         responseData.message = "No user Found";
-        responseData.status = 404;
-        return res.status(404).send(responseData);
+        responseData.status = 200;
+        return res.status(200).send(responseData);
     }
     userData.dob = hashDob;
     userData.gender = hashGender;
@@ -73,9 +70,9 @@ router.post('/update', async (req,res) => {
     }
     catch(err) {
         responseData.message = "contact dev Error 7285";
-        responseData.status = 400;
+        responseData.status = 200;
         console.log(err);
-        return res.status(400).send(responseData);
+        return res.status(200).send(responseData);
     }
 });
 

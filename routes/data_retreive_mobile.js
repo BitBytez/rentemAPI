@@ -12,7 +12,7 @@ client.connect();
 const {
     dataEncrypt,
     dataDecrypt,
-    DecrpytUser
+    DecryptUser
 } = require('../encryption');
 
 const privateDB = "rentemPrivateDB";
@@ -30,15 +30,15 @@ router.post('/mobile', async (req,res)=>{
     }); 
     var userData = {};
     if (mobileExists){
-        userData.user = DecrpytUser(mobileExists);
+        userData.user = DecryptUser(mobileExists);
         userData.message = "mobile Exists";
         userData.status = 200;
         return res.status(200).send(userData);
     }
 
     userData.message = "mobile Doesn't Exists";
-    userData.status = 404;
-    return res.status(404).send(userData);
+    userData.status = 200;
+    return res.status(200).send(userData);
 });
 
 client.close();
