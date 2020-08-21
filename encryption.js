@@ -26,14 +26,21 @@ const DecryptUser = (encryptedUser) => {
     return _DecryptedUser;
 }
 
-const encryptUser = (simpleuser) => {
+// @params
+// keys -> only specific keys to encrypt 
+const encryptUser = (simpleuser, keys) => {
     var _encryptedUser = {};
     var legalKeys = ["email", "name", "id", "photo", "dob", "gender", "mobile"];
+    if(!keys){
+        keys = legalKeys;
+    }
     for (var key in simpleuser){
         if(legalKeys.indexOf(key) == -1){
             continue;
         }
-        _encryptedUser[key] = dataEncrypt(simpleuser[key]);
+        if(keys.indexOf(key) !== -1){
+            _encryptedUser[key] = dataEncrypt(simpleuser[key]);
+        }
     }
     return _encryptedUser;
 }
