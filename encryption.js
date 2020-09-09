@@ -45,7 +45,33 @@ const encryptUser = (simpleuser, keys) => {
     return _encryptedUser;
 }
 
+const encryptProduct = (product) => {
+    var _encryptedProduct = {};
+    var legalKeys = ["uri", "description","price","title","seller","rating","stockcount"];
+    for(var key in product){
+        _encryptedProduct[key] = dataEncrypt(product[key]);
+    }
+    return _encryptedProduct;
+}
+
+const decryptProduct = (product) => {
+    var _decryptedProduct = {};
+    var legalKeys = ["uri", "description", "price", "title", "seller", "rating", "stockcount"];
+    for (var key in product) {
+        if(key == "_id" || key == "id"){
+            _decryptedProduct[key] = product[key];
+            continue;
+        }
+        console.log(key);
+        console.log(product[key]);
+        _decryptedProduct[key] = dataDecrypt(product[key]);
+    }
+
+    return _decryptedProduct;
+}
 module.exports.dataEncrypt = dataEncrypt;
 module.exports.dataDecrypt = dataDecrypt;
 module.exports.DecryptUser = DecryptUser;
 module.exports.encryptUser = encryptUser;
+module.exports.encryptProduct = encryptProduct;
+module.exports.decryptProduct = decryptProduct;
