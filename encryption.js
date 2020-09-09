@@ -62,8 +62,6 @@ const decryptProduct = (product) => {
             _decryptedProduct[key] = product[key];
             continue;
         }
-        console.log(key);
-        console.log(product[key]);
         _decryptedProduct[key] = dataDecrypt(product[key]);
     }
 

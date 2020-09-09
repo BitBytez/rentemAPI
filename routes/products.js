@@ -53,7 +53,6 @@ router.post('/getProduct', async(req, res) => {
     });
     var responseData = {};
     if(_productDetails){
-        console.log(_productDetails);
         responseData.product = decryptProduct(_productDetails);
         responseData.status = 200;
         return res.status(200).send(responseData);
