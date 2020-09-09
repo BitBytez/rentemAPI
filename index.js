@@ -20,8 +20,10 @@ app.use(logger('dev'));
 const mailChecker = require('./routes/mail_checker');
 const dataRetrieveMobile = require('./routes/data_retreive_mobile');
 const updateDetails = require('./routes/details_update');
+const productAccess = require('./routes/products');
 app.use('/test',mailChecker);
 app.use('/test',dataRetrieveMobile);
 app.use('/test',updateDetails);
+app.use('/test',productAccess);
 
 app.listen(port, () => console.log('Listening on', port));
