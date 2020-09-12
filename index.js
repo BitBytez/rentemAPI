@@ -21,10 +21,14 @@ const mailChecker = require('./routes/mail_checker');
 const dataRetrieveMobile = require('./routes/data_retreive_mobile');
 const updateDetails = require('./routes/details_update');
 const productAccess = require('./routes/products');
-const homePage = require('./routes/home_page')
+const homePage = require('./routes/home_page');
+const buyPage = require('./routes/buy_page');
+const rentPage = require('./routes/rent_page');
 app.use('/test',mailChecker);
 app.use('/test',dataRetrieveMobile);
 app.use('/test',updateDetails);
 app.use('/test',productAccess);
 app.use('/test', homePage);
+app.use('/test',buyPage);
+app.use('/test',rentPage);
 app.listen(port, () => console.log('Listening on', port));
